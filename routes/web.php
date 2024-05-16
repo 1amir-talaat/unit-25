@@ -26,7 +26,10 @@ Route::middleware('auth')->group(function () {
 });
 
 /**General user routes **/
-Route::middleware(['auth', 'verified'])->get('/dashboard', [DashboardController::class, 'generalUserDashboard'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard/open-services', [DashboardController::class, 'openServices'])->name('dashboard.open_services');
+    Route::get('/dashboard', [DashboardController::class, 'generalUserDashboard'])->name('dashboard');
+});
 
 /**Admin routes **/
 Route::middleware('adminAuth')->prefix('admin')->group(function () {
@@ -35,4 +38,4 @@ Route::middleware('adminAuth')->prefix('admin')->group(function () {
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -10,6 +10,6 @@ class DashboardController extends Controller {
     }
 
     public function generalUserDashboard() {
-        return view('generalUserDashboard');
+        return view('services');
     }
 }
