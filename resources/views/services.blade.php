@@ -32,7 +32,8 @@
                                 {{-- Add a button to apply for the service --}}
                                 <form action="{{ route('services.apply', $service->id) }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                                    <button type="submit"
+                                        class="inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
                                         Apply
                                     </button>
                                 </form>
