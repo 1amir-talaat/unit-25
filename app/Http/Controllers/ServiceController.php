@@ -69,6 +69,17 @@ class ServiceController extends Controller {
         // Redirect to a success page or back to the list
         return redirect()->route('services.index')->with('success', 'Service deleted successfully.');
     }
+    public function applyForService(Request $request, Service $service) {
+        $user = auth()->user(); // Get the authenticated user
 
+        // Check if the user is already applied for this service
+        if ($user->services()->where('service_id', $service->id)->exists()) {
+            return redirect()->back()->with('error', 'You have already applied for this service.');
+        }
 
+        // Attach the service to the user
+        $user->services()->attach($service);
+
+        return redirect()->back()->with('success', 'Application submitted successfully.');
+    }
 }

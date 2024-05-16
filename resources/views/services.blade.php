@@ -24,6 +24,11 @@
 
                                 <p class="mb-3 font-normal text-gray-700 flex-grow">{{ $service->description }}</p>
 
+                                {{-- Display success message if it exists --}}
+                                @if (session('success'))
+                                    <div class="mb-3 text-green-600">{{ session('success') }}</div>
+                                @endif
+
                                 {{-- Add a button to apply for the service --}}
                                 <form action="{{ route('services.apply', $service->id) }}" method="POST">
                                     @csrf

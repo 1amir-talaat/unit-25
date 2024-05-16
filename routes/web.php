@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard/open-tickets', [DashboardController::class, 'openTickets'])->name('dashboard.open_tickets');
     Route::get('/dashboard', [DashboardController::class, 'generalUserDashboard'])->name('dashboard');
-    Route::post('/services/{serviceId}/apply', [ServiceController::class, 'applyForService'])->name('services.apply');
+    Route::post('/services/{service}/apply', [ServiceController::class, 'applyForService'])->name('services.apply');
 });
 
 /**Admin routes **/
