@@ -8,12 +8,17 @@ use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller {
     public function adminDashboard() {
-        return view('adminDashboard');
+
+        return view('adminServices');
     }
 
     public function generalUserDashboard() {
         // Get the authenticated user
         $user = Auth::user();
+
+        if ($user->type == 1) {
+            return view('adminServices');
+        }
 
         // Fetch services that the user has not applied for along with their categories
         $services = Service::whereDoesntHave('users', function ($query) use ($user) {
@@ -27,6 +32,11 @@ class DashboardController extends Controller {
 
     public function openTickets() {
         $user = auth()->user();
+
+        if ($user->type == 1) {
+            return view('adminServices');
+        }
+
         $appliedServices = $user->services()->with('category')->get();
 
         // Return the view with applied services
