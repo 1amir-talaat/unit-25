@@ -18,7 +18,7 @@
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard.open_tickets')" :active="request()->routeIs('dashboard.open_tickets')">
-                        {{ __('Open Tickets') }}
+                        {{ __('Applied Services') }}
                     </x-nav-link>
                 </div>
             </div>

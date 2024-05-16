@@ -82,4 +82,19 @@ class ServiceController extends Controller {
 
         return redirect()->back()->with('success', 'Application submitted successfully.');
     }
+    public function deleteApplication(Service $service) {
+        // Get the authenticated user
+        $user = auth()->user();
+
+        // Check if the user has applied to this service
+        if (!$user->services()->where('service_id', $service->id)->exists()) {
+            return redirect()->route('dashboard.open_tickets')->with('error', 'You have not applied to this service.');
+        }
+
+        // Detach the service from the user
+        $user->services()->detach($service);
+
+        // Redirect back with a success message
+        return redirect()->route('dashboard.open_tickets')->with('success', 'Application deleted successfully.');
+    }
 }
