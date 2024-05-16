@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,8 +28,9 @@ Route::middleware('auth')->group(function () {
 
 /**General user routes **/
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard/open-services', [DashboardController::class, 'openServices'])->name('dashboard.open_services');
+    Route::get('/dashboard/open-tickets', [DashboardController::class, 'openTickets'])->name('dashboard.open_tickets');
     Route::get('/dashboard', [DashboardController::class, 'generalUserDashboard'])->name('dashboard');
+    Route::post('/services/{serviceId}/apply', [ServiceController::class, 'applyForService'])->name('services.apply');
 });
 
 /**Admin routes **/

@@ -17,6 +17,7 @@ class UserSeeder extends Seeder {
         $userObj->email = 'userRafi@gmail.com';
         $userObj->password = Hash::make('123456789');
         $userObj->type = 0;
+        $userObj->address = '123 Main St, City, Country'; // Add address here
         $userObj->save();
 
         $adminObj = new User();
@@ -24,6 +25,7 @@ class UserSeeder extends Seeder {
         $adminObj->email = 'adminRafi@gmail.com';
         $adminObj->password = Hash::make('123456789');
         $adminObj->type = 1;
+        $adminObj->address = '456 Oak Ave, Town, Country'; // Add address here
         $adminObj->save();
     }
 }
