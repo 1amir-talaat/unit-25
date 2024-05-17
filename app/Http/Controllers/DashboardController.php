@@ -5,19 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class DashboardController extends Controller {
-    public function adminDashboard() {
-
-        return view('adminServices');
-    }
-
     public function generalUserDashboard() {
         // Get the authenticated user
         $user = Auth::user();
 
         if ($user->type == 1) {
-            return view('adminServices');
+            return Redirect::route('admin.services.index');
         }
 
         // Fetch services that the user has not applied for along with their categories
@@ -34,7 +30,7 @@ class DashboardController extends Controller {
         $user = auth()->user();
 
         if ($user->type == 1) {
-            return view('adminServices');
+            return Redirect::route('admin.services.index');
         }
 
         $appliedServices = $user->services()->with('category')->get();
@@ -42,4 +38,6 @@ class DashboardController extends Controller {
         // Return the view with applied services
         return view('openTickets', compact('appliedServices'));
     }
+
+    
 }

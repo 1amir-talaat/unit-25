@@ -3,26 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
+use App\Models\ServiceCategory;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller {
-    public function showService(Service $service) {
-        return view('admin.service.show', compact('service'));
+    // Method to display all services
+    public function index() {
+        $services = Service::all();
+        return view('admin.index', compact('services'));
     }
 
-    // Method to delete a service
-    public function deleteService(Service $service) {
-        $service->delete();
-        return redirect()->route('admin.services.index')->with('success', 'Service deleted successfully.');
-    }
-
-    // Method to show the form for editing a service
+    // Method to show the form for editing the specified service
     public function editService(Service $service) {
-        return view('admin.service.edit', compact('service'));
+        $categories = ServiceCategory::all(); // Assuming you have a ServiceCategory model
+        return view('admin.edit', compact('service', 'categories'));
     }
 
-    // Method to update a service
+    // Method to update the specified service in the database
     public function updateService(Request $request, Service $service) {
+        // Validate the request data
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
@@ -30,8 +29,20 @@ class ServiceController extends Controller {
             'service_category_id' => 'required|exists:service_categories,id',
         ]);
 
+        // Update the service
         $service->update($request->all());
+
+        // Redirect to a success page or back to the form
         return redirect()->route('admin.services.index')->with('success', 'Service updated successfully.');
+    }
+
+    // Method to remove the specified service from the database
+    public function destroy(Service $service) {
+        // Delete the service
+        $service->delete();
+
+        // Redirect to a success page or back to the list
+        return redirect()->route('admin.services.index')->with('success', 'Service deleted successfully.');
     }
 
     public function applyForService(Request $request, Service $service) {
@@ -62,5 +73,25 @@ class ServiceController extends Controller {
 
         // Redirect back with a success message
         return redirect()->route('dashboard.open_tickets')->with('success', 'Application deleted successfully.');
+    }
+    public function create() {
+        $categories = ServiceCategory::all();
+        return view('admin.create', compact('categories'));
+    }
+
+    public function store(Request $request) {
+        // Validate the request data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'category_id' => 'required|exists:service_categories,id',
+        ]);
+
+        // Create and save the service
+        Service::create($request->all());
+
+        // Redirect to a success page or back to the form
+        return redirect()->route('admin.services.index')->with('success', 'Service created successfully.');
     }
 }

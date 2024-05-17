@@ -43,9 +43,7 @@ class AuthenticatedSessionController extends Controller {
             if (Auth::user()->type == 0) {
                 return redirect()->route('dashboard');
             } elseif (Auth::user()->type == 1) {
-                return redirect()->route('adminDashboardShow');
-            } elseif (Auth::user()->type == 2) {
-                return redirect()->route('superAdminDashboardShow');
+                return redirect()->route('admin.services.index');
             }
         } else {
             return redirect()->route('login')->with('error', "Wrong credentials");

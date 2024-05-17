@@ -5,61 +5,52 @@ namespace App\Http\Controllers;
 use App\Models\ServiceCategory;
 use Illuminate\Http\Request;
 
-class ServiceCategoryController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+class ServiceCategoryController extends Controller {
+
+    public function index() {
+        $categories = ServiceCategory::all();
+        return view('admin.categories.index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function create() {
+        return view('admin.categories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        // Validation
+        $request->validate([
+            'name' => 'required|string|max:255',
+            // Add any other validation rules you need
+        ]);
+
+        // Create category
+        ServiceCategory::create($request->all());
+
+        return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(ServiceCategory $serviceCategory)
-    {
-        //
+    public function edit(ServiceCategory $category) {
+        return view('admin.categories.edit', compact('category'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ServiceCategory $serviceCategory)
-    {
-        //
+    public function update(Request $request, ServiceCategory $category) {
+        // Validation
+        $request->validate([
+            'description' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            // Add any other validation rules you need
+        ]);
+
+        // Update category
+        $category->update($request->all());
+
+        return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, ServiceCategory $serviceCategory)
-    {
-        //
-    }
+    public function destroy(ServiceCategory $category) {
+        // Delete category
+        $category->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ServiceCategory $serviceCategory)
-    {
-        //
+        return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully.');
     }
 }

@@ -12,7 +12,10 @@
 
         <!-- Navigation Links -->
         <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-          <x-nav-link :href="route('adminDashboardShow')" :active="request()->routeIs('adminDashboardShow')">
+          <x-nav-link :href="route('admin.services.index')" :active="request()->routeIs('admin.services.index')">
+            {{ __('Services') }}
+          </x-nav-link>
+          <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
             {{ __('Services') }}
           </x-nav-link>
         </div>

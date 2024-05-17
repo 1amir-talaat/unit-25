@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class ServiceCategory extends Model {
     use HasFactory;
-
+    protected $fillable = [
+        'name',
+        'description'
+    ];
     /**
      * Get the services for the category.
      */
