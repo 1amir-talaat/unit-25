@@ -16,7 +16,7 @@
             {{ __('Services') }}
           </x-nav-link>
           <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
-            {{ __('Services') }}
+            {{ __('Service Categories') }}
           </x-nav-link>
         </div>
       </div>

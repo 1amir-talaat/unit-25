@@ -38,7 +38,6 @@ class ServiceCategoryController extends Controller {
         $request->validate([
             'description' => 'required|string|max:255',
             'name' => 'required|string|max:255',
-            // Add any other validation rules you need
         ]);
 
         // Update category

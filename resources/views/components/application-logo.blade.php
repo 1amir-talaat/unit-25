@@ -1,1 +1,1 @@
-<div style="width: 55px;"><img style="width: 100%;" src="{{ asset('logo.png') }}" alt="Example Image"></div>
+<h1 class="font-bold text-xl">Dern-Support</h1>
